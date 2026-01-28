@@ -1,6 +1,6 @@
-interface tasks {
-  id: string;
-  title: string;
-  description?: string;
-  time: number;
+export default interface Task {
+  id: number;
+  nome: string;
+  descricao?: string;
+  tempo: number;
 }

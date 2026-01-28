@@ -1,6 +1,7 @@
 import Fastify, { FastifyInstance } from 'fastify'
 import tasksRoutes from './routes/tasks.routes'
 import cors from '@fastify/cors'
+import 'dotenv/config'
 
 class App {
   public app: FastifyInstance
