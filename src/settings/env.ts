@@ -1,10 +1,22 @@
 import { z } from 'zod'
+import { createTasksSchemaType, updateTasksSchemaType } from '../interface/interface'
 
 export const createTasksSchema = z.object({
   nome: z.string().min(3),
-  descricao: z.string(),
-  tempo: z.coerce.number().int().min(18).optional(),
+  descricao: z.string().optional(),
+  tempo: z.coerce.number().int().min(18)
+}) satisfies z.ZodType<createTasksSchemaType>
+
+export const updateTasksSchema = z.object({
+  nome: z.string().min(3),
+  descricao: z.string().optional(),
+  tempo: z.coerce.number().int().min(18)
+}) 
+
+export const paramsSchema = z.object({
+  id: z.coerce.number().int().positive(),
 })
+
 
 const envSchema = z.object({
   PORT: z.coerce.number().default(3000),
@@ -14,5 +26,6 @@ const envSchema = z.object({
   DB_PASSWORD: z.string().default('root'),
   DB_NAME: z.string().default('pomodoro'),
 })
+
 
 export const env = envSchema.parse(process.env)
