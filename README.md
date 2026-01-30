@@ -1,10 +1,10 @@
-# ⏱️ Pomodoro Backend
+# Pomodoro Backend
 
 Back-end do aplicativo **Pomodoro**, desenvolvido em **Node.js + TypeScript** utilizando **Fastify**. Este projeto serve como base de estudos e evolução técnica, com foco em boas práticas de back-end, arquitetura, autenticação e integração com o front-end.
 
 ---
 
-## 🎯 Objetivos do Projeto
+##  Objetivos do Projeto
 
 Este projeto está **em desenvolvimento** e tem como principais objetivos:
 
@@ -152,14 +152,13 @@ npm run start-qa
 ---
 
 ## Status do Projeto
-
-🚧 **Em desenvolvimento**
+ **Em desenvolvimento**
 
 Funcionalidades ainda estão sendo implementadas e podem sofrer mudanças frequentes.
 
 ---
 
-## 🚀 Próximos Passos
+## Próximos Passos
 
 * [ ] Swagger (Fastify Swagger)
 * [ ] Autenticação JWT
