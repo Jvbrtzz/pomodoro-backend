@@ -4,6 +4,7 @@ import cors from '@fastify/cors'
 import 'dotenv/config'
 import middlewareHeaders from './middleware/middlewar.header'
 import helmet from '@fastify/helmet'
+import health from './routes/routes'
 
 class App {
   public app: FastifyInstance
@@ -15,8 +16,9 @@ class App {
   }
 
   private routes(): void {
-    this.app.register(cors, { origin: "*"})
+    this.app.register(cors, { origin: '*' })
     this.app.register(helmet)
+    this.app.register(health, { prefix: '/' })
     this.app.register(tasksRoutes, { prefix: '/api/tasks' })
   }
 

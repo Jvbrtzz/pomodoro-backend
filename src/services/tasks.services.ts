@@ -1,6 +1,17 @@
 import {createTasksSchemaType, Task, updateTasksSchemaType} from '../interface/interface'
 import db from '../database'
 
+export class HealthService {
+    static async checkDatabaseConnection(): Promise<boolean> {
+        try {  
+            await db.query('SELECT 1')
+            return true
+        } catch (error) {
+            return false
+        }
+    }
+} 
+
 export class TasksService {
 
     private static async assertTaskExists(id: number): Promise<void> {
@@ -8,7 +19,7 @@ export class TasksService {
             if ((getId[0] as any[]).length === 0){ 
                 throw new Error('Task not found')
          }
-        }
+    }
 
     static async listarTasks(): Promise<Task[]> {
         const [rows] = await db.query('SELECT * FROM tasks')
