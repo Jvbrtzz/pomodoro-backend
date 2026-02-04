@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { createTasksSchemaType, updateTasksSchemaType } from '../interface/interface'
+import { createTasksSchemaType, updateTasksSchemaType, LoginInput, RegisterInput } from '../interface/interface'
 
 export const createTasksSchema = z.object({
   nome: z.string().min(3),
@@ -16,6 +16,17 @@ export const updateTasksSchema = z.object({
 export const paramsSchema = z.object({
   id: z.coerce.number().int().positive(),
 })
+
+export const loginSchema = z.object({
+  email: z.string().email(),
+  senha: z.coerce.string().min(4),
+}) satisfies z.ZodType<LoginInput>
+
+export const resgisterSchema = z.object({
+  nome: z.string().min(3),
+  email: z.string().email(),
+  senha: z.coerce.string().min(4),
+}) satisfies z.ZodType<RegisterInput>
 
 
 const envSchema = z.object({
