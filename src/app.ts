@@ -5,6 +5,7 @@ import 'dotenv/config'
 import middlewareHeaders from './middleware/middlewar.header'
 import helmet from '@fastify/helmet'
 import health from './routes/routes'
+import loginRoutes from './routes/login.routes'
 
 class App {
   public app: FastifyInstance
@@ -20,6 +21,7 @@ class App {
     this.app.register(helmet)
     this.app.register(health, { prefix: '/' })
     this.app.register(tasksRoutes, { prefix: '/api/tasks' })
+    this.app.register(loginRoutes, { prefix: '/api/auth' })
   }
 
   private adHook(): void {
