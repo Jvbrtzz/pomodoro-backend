@@ -22,5 +22,5 @@ export type RegisterResponse = Omit<User, 'senha'>;
 
 export type LoginInput = Pick<User, 'email' | 'senha' >;
 
-export type LoginResponse = Omit<User, 'senha'>;
+export type LoginResponse = User;
 

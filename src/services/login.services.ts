@@ -7,23 +7,36 @@ export class LoginService {
   static async login(credentials: LoginInput): Promise<string> {
     const { email, senha } = credentials
     const [rows] = await db.query(
-      'SELECT id, nome, email FROM users WHERE email = ? AND senha = ? LIMIT 1',
-      [email, senha]
+      'SELECT id, nome, email, senha FROM users WHERE email = ? LIMIT 1',
+      [email]
     )
 
     const users = rows as LoginResponse[]
-    if (users.length === 0) {
+    const user = users[0]
+
+    if (!user || !(await bcrypt.compare(senha, user.senha))) {
       throw new Error('Invalid credentials')
     }
-    const token =jwt.sign({ id: users[0].id, email: users[0].email }, 'your-secret-key', { expiresIn: '1h' })
-    return token
+
+    const accessToken = jwt.sign(
+      {
+        user_id: user.id,
+        username: user.nome,
+        first_name: user.nome.split(' ')[0],
+        last_name: user.nome.split(' ')[1],
+        user_type: 'user',
+      },
+      'access-token',
+      { expiresIn: '360h' }
+    )
+    return accessToken
 
   }
 }
 
 
 export class RegisterService {
-  static async register(credentials: RegisterInput): Promise<string> {
+  static async register(credentials: RegisterInput): Promise<RegisterResponse> {
     const { nome, email, senha } = credentials
     const hashedPassword = await bcrypt.hash(senha, 10);
     
@@ -36,8 +49,7 @@ export class RegisterService {
     if (users.length === 0) {
       throw new Error('Invalid credentials')
     }
-    const token =jwt.sign({ id: users[0].id, email: users[0].email }, 'your-secret-key', { expiresIn: '1h' })
-    return token
+    return users[0];
 
   }
 }
