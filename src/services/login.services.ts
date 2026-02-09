@@ -21,9 +21,8 @@ export class LoginService {
     const accessToken = jwt.sign(
       {
         user_id: user.id,
-        username: user.nome,
-        first_name: user.nome.split(' ')[0],
-        last_name: user.nome.split(' ')[1],
+        name: user.nome,
+        email: user.email,
         user_type: 'user',
       },
       'access-token',
