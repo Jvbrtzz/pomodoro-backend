@@ -28,7 +28,7 @@ export class TasksService {
 
     static async criarTask(task: createTasksSchemaType): Promise<void> {
         const { nome, descricao, tempo, user_id } = task
-        await db.query('INSERT INTO tasks (nome, descricao, tempo, user_id) VALUES (?, ?, ?)', [nome, descricao, tempo, user_id])
+        await db.query('INSERT INTO tasks (nome, descricao, tempo, user_id) VALUES (?, ?, ?, ?)', [nome, descricao, tempo, user_id])
     }
 
     static async atualizarTask(id: number, task: updateTasksSchemaType): Promise<void> {
