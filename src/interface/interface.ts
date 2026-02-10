@@ -3,11 +3,12 @@ export interface Task {
   nome: string;
   descricao?: string;
   tempo: number;
+  user_id: number;
 }
 
 export type createTasksSchemaType = Omit<Task, 'id'>;
 
-export type updateTasksSchemaType = Task;
+export type updateTasksSchemaType = Omit<Task, 'user_id'>;
 
 export interface User {
   id: number;

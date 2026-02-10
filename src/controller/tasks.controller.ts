@@ -4,15 +4,16 @@ import { TasksService } from '../services/tasks.services.js'
 import { Task } from '../interface/interface'
 
 function getAlltasks(req: any, res: any): Promise<Task[]> | void {
+  const result = (req.body.user_id)
    try {
-      const tasks = TasksService.listarTasks()
+      const tasks = TasksService.listarTasks(result)
       return tasks
     } catch (error) {
       res.status(500).send({ error: 'Erro ao listar tarefas' })
     }
 }
 
-async function createTaskasync (req: any, res: any) :Promise<void> {
+async function createTask (req: any, res: any) :Promise<void> {
     const result = createTasksSchema.safeParse(req.body)
       console.log(result)
       if (!result.success) {
@@ -26,6 +27,7 @@ async function createTaskasync (req: any, res: any) :Promise<void> {
           nome: result.data.nome,
           descricao: result.data.descricao,
           tempo: result.data.tempo || 25,
+          user_id: result.data.user_id
         })
         res.status(201).send({ message: 'Tarefa criada com sucesso' })
       } catch (error) {
@@ -34,7 +36,7 @@ async function createTaskasync (req: any, res: any) :Promise<void> {
       }
   }
 
-async function updateTaskasync (req: any, res: any) :Promise<void> { 
+async function updateTask (req: any, res: any) :Promise<void> { 
     const params = paramsSchema.safeParse(req.params)
     if (!params.success) {
       return res.status(400).send({ error: 'ID inválido' })
@@ -76,7 +78,7 @@ async function deleteTask(req: any, res: any): Promise<Promise<Task[]> | void> {
 
 export {
   getAlltasks,
-  createTaskasync,
-  updateTaskasync,
+  createTask,
+  updateTask,
   deleteTask
 }
