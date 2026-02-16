@@ -7,7 +7,7 @@ export class LoginService {
   static async login(credentials: LoginInput): Promise<string> {
     const { email, senha } = credentials
     const [rows] = await db.query(
-      'SELECT id, nome, email, senha FROM users WHERE email = ? LIMIT 1',
+      'SELECT id, nome, email, senha, user_type FROM users WHERE email = ? LIMIT 1',
       [email]
     )
 
@@ -23,7 +23,7 @@ export class LoginService {
         user_id: user.id,
         name: user.nome,
         email: user.email,
-        user_type: 'user',
+        user_type: user.user_type,
       },
       'access-token',
       { expiresIn: '360h' }
@@ -36,12 +36,13 @@ export class LoginService {
 
 export class RegisterService {
   static async register(credentials: RegisterInput): Promise<RegisterResponse> {
-    const { nome, email, senha } = credentials
+    const { nome, email, senha, user_type } = credentials
+    console.log(credentials)
     const hashedPassword = await bcrypt.hash(senha, 10);
     
     const [rows] = await db.query(
-      'INSERT INTO users (nome, email, senha) VALUES (?, ?, ?)',
-      [nome, email, hashedPassword]
+      'INSERT INTO users (nome, email, senha, user_type) VALUES (?, ?, ?, ?)',
+      [nome, email, hashedPassword, user_type]
     )
 
     const users = rows as RegisterResponse[]

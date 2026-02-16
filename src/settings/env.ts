@@ -27,6 +27,7 @@ export const resgisterSchema = z.object({
   nome: z.string().min(3),
   email: z.string().email(),
   senha: z.coerce.string().min(4),
+  user_type: z.coerce.string().min(4),
 }) satisfies z.ZodType<RegisterInput>
 
 

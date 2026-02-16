@@ -15,9 +15,10 @@ export interface User {
   nome: string;
   email: string;
   senha: string;
+  user_type: string
 }
 
-export type RegisterInput = Pick<User, 'nome' | 'email' | 'senha'>;
+export type RegisterInput = Pick<User, 'nome' | 'email' | 'senha' | 'user_type'>;
 
 export type RegisterResponse = Omit<User, 'senha'>;
 
