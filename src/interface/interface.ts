@@ -3,20 +3,22 @@ export interface Task {
   nome: string;
   descricao?: string;
   tempo: number;
+  user_id: number;
 }
 
 export type createTasksSchemaType = Omit<Task, 'id'>;
 
-export type updateTasksSchemaType = Task;
+export type updateTasksSchemaType = Omit<Task, 'user_id'>;
 
 export interface User {
   id: number;
   nome: string;
   email: string;
   senha: string;
+  user_type: string
 }
 
-export type RegisterInput = Pick<User, 'nome' | 'email' | 'senha'>;
+export type RegisterInput = Pick<User, 'nome' | 'email' | 'senha' | 'user_type'>;
 
 export type RegisterResponse = Omit<User, 'senha'>;
 

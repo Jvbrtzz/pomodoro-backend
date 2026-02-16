@@ -4,7 +4,8 @@ import { createTasksSchemaType, updateTasksSchemaType, LoginInput, RegisterInput
 export const createTasksSchema = z.object({
   nome: z.string().min(3),
   descricao: z.string().optional(),
-  tempo: z.coerce.number().int().min(18)
+  tempo: z.coerce.number().int().min(18),
+  user_id: z.coerce.number().int()
 }) satisfies z.ZodType<createTasksSchemaType>
 
 export const updateTasksSchema = z.object({
@@ -26,6 +27,7 @@ export const resgisterSchema = z.object({
   nome: z.string().min(3),
   email: z.string().email(),
   senha: z.coerce.string().min(4),
+  user_type: z.coerce.string().min(4),
 }) satisfies z.ZodType<RegisterInput>
 
 

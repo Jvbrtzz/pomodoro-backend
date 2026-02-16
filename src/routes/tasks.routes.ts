@@ -1,15 +1,13 @@
 import { FastifyInstance } from 'fastify'
-import { createTasksSchema, updateTasksSchema, paramsSchema } from '../settings/env'
-import { TasksService } from '../services/tasks.services.js'
-import { getAlltasks, updateTaskasync, createTaskasync, deleteTask } from '../controller/tasks.controller'
+import { getAlltasks, updateTask, createTask, deleteTask } from '../controller/tasks.controller'
 
 export default async function tasksRoutes(app: FastifyInstance) {
   
-  app.get('/getTasks', getAlltasks)
+  app.post('/getTasks', getAlltasks)
 
-  app.post('/createTask', createTaskasync)
+  app.post('/createTask', createTask)
 
-  app.put<{ Params: { id: string }}>('/updateTask/:id', updateTaskasync)
+  app.put<{ Params: { id: string }}>('/updateTask/:id', updateTask)
 
   app.delete<{ Params: { id: string }}>('/deleteTask/:id', deleteTask)
 

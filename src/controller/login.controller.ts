@@ -35,13 +35,13 @@ export async function register(req: any, res: any): Promise<void> {
 
   try {
     const user = await RegisterService.register(result.data)
-    console.log(user)
+    res.status(200).send({ message: 'Cadastro realizado com sucesso' })
   } catch (error) {
     if (error instanceof Error && error.message === 'Invalid credentials') {
       res.status(401).send({ error: 'Credenciais inválidas' })
       return
     }
-    res.status(200).send({ message: 'Cadastro realizado com sucesso' })
+    
   }
 }
 

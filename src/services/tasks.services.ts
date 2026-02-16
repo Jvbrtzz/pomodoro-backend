@@ -21,14 +21,14 @@ export class TasksService {
          }
     }
 
-    static async listarTasks(): Promise<Task[]> {
-        const [rows] = await db.query('SELECT * FROM tasks')
+    static async listarTasks(user_id: number): Promise<Task[]> {
+        const [rows] = await db.query('SELECT * FROM tasks WHERE user_id = ?', [user_id])
         return rows as Task[]
     }
 
     static async criarTask(task: createTasksSchemaType): Promise<void> {
-        const { nome, descricao, tempo } = task
-        await db.query('INSERT INTO tasks (nome, descricao, tempo) VALUES (?, ?, ?)', [nome, descricao, tempo])
+        const { nome, descricao, tempo, user_id } = task
+        await db.query('INSERT INTO tasks (nome, descricao, tempo, user_id) VALUES (?, ?, ?, ?)', [nome, descricao, tempo, user_id])
     }
 
     static async atualizarTask(id: number, task: updateTasksSchemaType): Promise<void> {
