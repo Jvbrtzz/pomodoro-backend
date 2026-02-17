@@ -27,8 +27,7 @@ export async function register(req: any, res: any): Promise<void> {
   const result = resgisterSchema.safeParse(req.body)
   if (!result.success) {
     res.status(400).send({
-      error: 'Dados inválidos',
-      details: result.error.format(),
+      error: result.error.format()
     })
     return
   }
@@ -41,7 +40,7 @@ export async function register(req: any, res: any): Promise<void> {
       res.status(401).send({ error: 'Credenciais inválidas' })
       return
     }
-    
+    res.status(500).send({ error: 'Erro ao realizar Registro' })
   }
 }
 
