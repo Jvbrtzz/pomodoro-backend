@@ -1,8 +1,12 @@
 import { FastifyInstance } from 'fastify'
-import { login, register } from '../controller/login.controller'
+import { login, register, getUsers } from '../controller/login.controller'
+import userTypeHook from '../middleware/middlewar.header'
+
 
 export default async function loginRoutes(app: FastifyInstance) {
   app.post('/login', login)
 
   app.post('/register', register)
-}
+
+  app.get('/getusers', { preHandler: userTypeHook }, getUsers)
+  }

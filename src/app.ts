@@ -29,7 +29,6 @@ class App {
       console.log(`Rota: [${method}] ${path}`)
     })
 
-    this.app.addHook('onSend', middlewareHeaders) //hook para adicionar headers de segurança, mas nao necessario com helmet
   }
 
 }

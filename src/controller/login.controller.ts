@@ -1,5 +1,5 @@
 import { loginSchema, resgisterSchema } from '../settings/env'
-import { LoginService, RegisterService } from '../services/login.services'
+import { LoginService, RegisterService, GetAllUsers } from '../services/login.services'
 
 export async function login(req: any, res: any): Promise<void> {
   const result = loginSchema.safeParse(req.body)
@@ -42,5 +42,20 @@ export async function register(req: any, res: any): Promise<void> {
     }
     res.status(500).send({ error: 'Erro ao realizar Registro' })
   }
+
+  
 }
 
+export async function getUsers(req: any, res: any): Promise<void> {
+  // userTypeHook already verified token and attached request.userType
+  try {
+    const users = await GetAllUsers.getAllUsers()
+    res.status(200).send({ message: 'Usuários recuperados com sucesso', users })
+  } catch (error) {
+    if (error instanceof Error && error.message === 'Invalid credentials') {
+      res.status(401).send({ error: 'Credenciais inválidas' })
+      return
+    }
+    res.status(500).send({ error: 'Erro ao realizar Registro' })
+  }
+}
