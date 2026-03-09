@@ -55,11 +55,28 @@ export class RegisterService {
   
 }
 
-export class GetAllUsers {
+export class GetUsers {
   static async getAllUsers(): Promise<RegisterResponse[]> {
     try {
       const [rows] = await db.query(
         'SELECT id, nome, email, user_type FROM users'
+      )
+
+      return rows as RegisterResponse[]
+
+    } catch (error) {
+      console.error('Erro ao buscar usuários:', error)
+
+      throw new Error('Erro ao buscar usuários no banco de dados')
+    }
+  }
+
+  static async getSearchUsers(search: string): Promise<RegisterResponse[]> {
+    try {
+      const searchTerm = `%${search}%`
+      const [rows] = await db.query(
+        'SELECT id, nome, email, user_type FROM users WHERE nome LIKE ?',
+        [searchTerm]
       )
 
       return rows as RegisterResponse[]
