@@ -30,6 +30,10 @@ export const resgisterSchema = z.object({
   user_type: z.coerce.string().min(4),
 }) satisfies z.ZodType<RegisterInput>
 
+export const searchUsersSchema = z.object({
+  term: z.string()
+})
+
 
 const envSchema = z.object({
   PORT: z.coerce.number().default(3000),
