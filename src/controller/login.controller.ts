@@ -68,7 +68,7 @@ export async function searchUsers(req: any, res: any): Promise<void> {
   }
 
   try {
-    const users = await GetUsers.getSearchUsers(result.data.query)
+    const users = await GetUsers.getSearchUsers(result.data.term)
     res.status(200).send({ message: 'Usuarios recuperados com sucesso', users })
   } catch (error) {
     if (error instanceof Error && error.message === 'Invalid credentials') {

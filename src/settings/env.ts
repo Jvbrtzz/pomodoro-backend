@@ -31,7 +31,7 @@ export const resgisterSchema = z.object({
 }) satisfies z.ZodType<RegisterInput>
 
 export const searchUsersSchema = z.object({
-  query: z.coerce.string().trim().min(1),
+  term: z.string()
 })
 
 
